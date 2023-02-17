@@ -19,7 +19,9 @@ def find_mismatch(text):
 
 
 def main():
-    text = input()
+    choice = input()
+    if "I" in choice:
+        text = input()
     mismatch = find_mismatch(text)
     if mismatch is not None:
      print(mismatch)
