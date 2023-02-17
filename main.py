@@ -1,4 +1,3 @@
-import sys
 from collections import namedtuple
 
 Bracket = namedtuple("Bracket", ["char", "position"])
@@ -16,22 +15,18 @@ def find_mismatch(text):
 
         if next in ")]}":
             if not opening_brackets_stack or not are_matching(opening_brackets_stack.pop().char, next):
-                return i + 1
-    if not opening_brackets_stack:
-        return "Success"
-    else:
-        return opening_brackets_stack[-1].position + 1
+             return i + 1
 
 
 def main():
-    if len(sys.argv) > 1 and sys.argv[1] == "F":
-        with open(sys.argv[2], "r") as f:
-            text = f.read().strip()
-    else:
-        text = input()
+    text = input()
     mismatch = find_mismatch(text)
-    print(mismatch)
+    if mismatch is not None:
+     print(mismatch)
+    else:
+     print("Success")
 
 
 if __name__ == "__main__":
     main()
+    
