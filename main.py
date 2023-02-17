@@ -1,27 +1,32 @@
-def is_balanced(s):
-    stack = []
-    opening = set('({[')
-    pairs = set([ ('(',')'), ('{','}'), ('[',']') ])
-    for char in s:
-        if char in opening:
-            stack.append(char)
-        else:
-            if len(stack) == 0:
-                return False
-            last_open = stack.pop()
-            if (last_open, char) not in pairs:
-                return False
-    return len(stack) == 0
+from collections import namedtuple
+
+Bracket = namedtuple("Bracket", ["char", "position"])
 
 
-if __name__ == '__main__':
-    import sys
-    if len(sys.argv) > 1:
-        filename = sys.argv[1]
-        with open(filename) as f:
-            for line in f:
-                line = line.strip()
-                print('Success' if is_balanced(line) else 'Failure')
+def are_matching(left, right):
+    return (left + right) in ["()", "[]", "{}"]
+
+
+def find_mismatch(text):
+    opening_brackets_stack = []
+    for i, next in enumerate(text):
+        if next in "([{":
+            opening_brackets_stack.append(Bracket(next, i))
+
+        if next in ")]}":
+            if not opening_brackets_stack or not are_matching(opening_brackets_stack.pop().char, next):
+             return i + 1
+
+
+def main():
+    text = input()
+    mismatch = find_mismatch(text)
+    if mismatch is not None:
+     print(mismatch)
     else:
-        s = input().strip()
-        print('Success' if is_balanced(s) else 'Failure')
+     print("Success")
+
+
+if __name__ == "__main__":
+    main()
+    
