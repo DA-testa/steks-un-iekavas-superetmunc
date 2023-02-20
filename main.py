@@ -1,3 +1,4 @@
+# 221RDC037 Edmunds Fiļipovs 18.grupa
 from collections import namedtuple
 
 Bracket = namedtuple("Bracket", ["char", "position"])
